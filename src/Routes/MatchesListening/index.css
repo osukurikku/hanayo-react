@@ -1,0 +1,43 @@
+.MatchesListening--wrapper {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.MatchesListening--match {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.MatchesListening--match-wrapper {
+    display: flex;
+    flex-direction: row;    
+    width: 100%;
+}
+
+.MatchesListening--match-wrapper img.avatar {
+    width: 48px; border-radius: 5px;
+    max-height: 48px;
+    margin-right: 2px;
+}
+
+.MatchesListening--match-wrapper div.MatchesListening--match--title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.MatchesListening--match-wrapper div.MatchesListening--match--title p,
+.MatchesListening--match-wrapper div.MatchesListening--match--title h3,
+.MatchesListening--match-wrapper div.MatchesListening--match--title span {
+    margin: 0!important;
+    padding: 0!important;
+}
+
+.MatchesListening--match-wrapper div.MatchesListening--match--title .subtitle {
+    color: gray;
+}
+

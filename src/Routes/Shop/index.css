@@ -1,0 +1,20 @@
+.Shop--up {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Shop--up > h3, .Shop--rightContainer > h3 {
+    padding: 0;
+    margin: 0;
+} 
+
+.Shop--rightContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex: 0 1 12vh;
+    align-self: center;
+}
