@@ -1,0 +1,222 @@
+.map {
+    width: 100%;
+    min-height: 145px;
+    display: inline-block;
+    background: white;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    transition: 0.3s;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    &__creator {
+        color: black;
+        float: left;
+        margin: 9px;
+        margin-left: 18px;
+        z-index: 3;
+    }
+    &:hover {
+        box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 1);
+    }
+}
+
+.map-additional-information {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    min-height: 40px;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+    &__row {
+        min-height: 20px;
+        display: flex;
+        align-items: center;
+        color: #fff;
+    }
+    &__icon {
+        //... 
+    }
+    &__value {
+        color: #fff;
+    }
+}
+
+.bodySearching
+{
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+
+.map-header {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    width: 100%;
+    height: 130px;
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(#000, .60);
+    }
+    &__status {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 3;
+        padding: 5px 15px;
+        color: white;
+        margin-left: 5px;
+        border-radius: 20px;
+        background: rgba(0, 0, 0, .45);
+    }
+    &__name {
+        margin-bottom: 4px;
+        font-size: 1.3em;
+        color: white;
+        text-shadow: 0px 0px 12px rgba(0, 0, 0, 1);
+        font-weight: 600;
+        margin-left: 10px;
+        z-index: 3;
+    }
+    &__artist {
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        text-shadow: 0px 0px 12px rgba(0, 0, 0, 1);
+        font-weight: 500;
+        color: white;
+        text-shadow: 0px 0px 12px rgba(0, 0, 0, 1);
+        margin-left: 10px;
+        z-index: 3;
+    }
+}
+
+.map-header img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: url(../../default-bg.png);
+    height: 130px;
+    opacity: 1;
+}
+
+.download {
+    color: black;
+    float: right;
+    margin: 10px 5px;
+    margin-right: 10px;
+}
+
+.link {
+    color: black;
+    float: right;
+    margin: 10px 3px;
+}
+
+.ignore {
+    color: black;
+    float: right;
+    margin: 10px 5px;
+}
+
+@font-face {
+    font-family: FontAwesomeExtra;
+    src: url(../../extra.ttf) format("truetype");
+}
+
+.faa {
+    font-family: FontAwesomeExtra;
+}
+
+.fa-extra-mode-osu:before {
+    content: "\E800"
+}
+
+.fa-extra-mode-fruits:before {
+    content: "\E801"
+}
+
+.wow-links > a {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.wow-links > a.clicked {
+    color: deeppink;
+}
+
+.fa-extra-mode-mania:before {
+    content: "\E802"
+}
+
+.fa-extra-mode-taiko:before {
+    content: "\E803"
+}
+
+.diff {
+    margin-right: 2.5px;
+    margin-top: 13.5px;
+}
+
+.diff2 {
+    margin-right: 5px;
+}
+
+#alldiff {
+    padding-top: 9.5px;
+    padding-left: 9px;
+    max-width: 240px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.icons-tooltip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Torus";
+    font-weight: 300;
+}
+
+.diff-easy {
+    color: #88B300 
+}
+
+.diff-normal {
+    color: #66CCFF 
+}
+
+.diff-hard {
+    color: #FFCC22
+}
+
+.diff-insane {
+    color: #FF66AA
+}
+
+.diff-expert {
+    color: #8866EE
+}
+
+.diff-expertplus {
+    color: #000
+} 

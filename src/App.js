@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom'
 
-import BeatmapSearching from './Routes/BeatmapSearching';
+import BeatmapSearching from './Routes/BeatmapSearching/index.jsx';
 import Leaderboard from './Routes/LeaderBoard';
 //import BeatmapListening from './Routes/BeatmapListening'
 import Shop from './Routes/Shop';
