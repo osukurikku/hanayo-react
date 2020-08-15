@@ -29,6 +29,35 @@ export default function DiffIcons({ childrenBeatmaps }) {
         else return "diff-expertplus";
     }
 
+    function sortDiffs(beatmaps, shorten = false) {
+        const
+            std = beatmaps.filter(beatmap => beatmap.Mode === 0).sort((a, b) => a.DifficultyRating - b.DifficultyRating),
+            taiko = beatmaps.filter(beatmap => beatmap.Mode === 1).sort((a, b) => a.DifficultyRating - b.DifficultyRating),
+            ctb = beatmaps.filter(beatmap => beatmap.Mode === 2).sort((a, b) => a.DifficultyRating - b.DifficultyRating),
+            mania = beatmaps.filter(beatmap => beatmap.Mode === 3).sort((a, b) => a.DifficultyRating - b.DifficultyRating);
+        
+        return !shorten 
+        ? [...std, ...taiko, ...ctb, ...mania]
+        : [
+            {
+                length: std.length,
+                map: std[std.length - 1],
+            },
+            {
+                length: taiko.length,
+                map: taiko[taiko.length - 1],
+            },
+            {
+                length: ctb.length,
+                map: ctb[ctb.length - 1],
+            },
+            {
+                length: mania.length,
+                map: mania[mania.length - 1],
+            }
+        ]
+    }
+
     function getDifficultyTooltip(diff) {
         return (
             <div className="icons-tooltip">
@@ -42,9 +71,12 @@ export default function DiffIcons({ childrenBeatmaps }) {
         )
     }
 
-    function getDiffIcon(beatmap) {
+    function getDiffIcon(beatmap, shorten = false, length) {
         return (
-            <a href={`https://kurikku.pw/b/${beatmap.BeatmapID}?mode=${beatmap.Mode}&mod=nomod`}>
+            <a 
+                href={`https://kurikku.pw/b/${beatmap.BeatmapID}?mode=${beatmap.Mode}&mod=nomod`} 
+                style={{ paddingRight: '5px' }}
+            >
                 <div className="diff2">
                     <div
                         className={`
@@ -53,6 +85,7 @@ export default function DiffIcons({ childrenBeatmaps }) {
                             fa-extra-mode-${getGameMode(beatmap.Mode)}
                         `}
                     />
+                    {shorten && <span className={getDiffColor(beatmap.DifficultyRating)}>{length}</span>}
                 </div>
             </a>
         )
@@ -60,15 +93,28 @@ export default function DiffIcons({ childrenBeatmaps }) {
 
     function renderIcons() {
         return <>
-            {childrenBeatmaps
-            .sort((a, b) => a.DifficultyRating - b.DifficultyRating)
-            .map(beatmap => (
+            {sortDiffs(childrenBeatmaps).map(beatmap => (
                     <Tippy
                         key={"map-" + beatmap.BeatmapID}
                         singleton={target}
                         content={getDifficultyTooltip(beatmap)}
                     >
                         {getDiffIcon(beatmap)}
+                    </Tippy>
+                )
+            )}
+        </>
+    }
+
+    function renderShortenIcons() {
+        return <>
+            {sortDiffs(childrenBeatmaps, true).map(beatmap => (
+                    beatmap.map && <Tippy
+                        key={"map-" + beatmap.map.BeatmapID}
+                        singleton={target}
+                        content={getDifficultyTooltip(beatmap.map)}
+                    >
+                        {getDiffIcon(beatmap.map, true, beatmap.length)}
                     </Tippy>
                 )
             )}
@@ -83,7 +129,7 @@ export default function DiffIcons({ childrenBeatmaps }) {
                 moveTransition='transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)'
                 placement="top"
             >
-                {renderIcons()}
+                {childrenBeatmaps.length <= 6 ? renderIcons() : renderShortenIcons()}
             </Tippy>
         </div>
     )

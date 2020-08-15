@@ -80,60 +80,40 @@ class BeatmapSearching extends Component {
         })
     };
 
-    switchMode(event) {
-        const mode = Number(event.target.dataset.modeosu);
-        this.setState({
-            mode: mode,
-            offset: 0
-        }, () => {
-            this.reCallApi();
-        });
+    switchMode(mode) {
+        this.setState({ mode, offset: 0 }, () => this.reCallApi());
     }
 
-    switchRank(event) {
-        const status = Number(event.target.dataset.rankstatus);
-        this.setState({
-            status: status,
-            offset: 0
-        }, () => {
-            this.reCallApi();
-        });
+    switchRank(status) {
+        this.setState({ status, offset: 0}, () => this.reCallApi());
     }
 
-    queryNew(event) {
-        const query = event.target.value;
-        this.setState({
-            query: query,
-            offset: 0
-        }, () => {
-            this.reCallApi();
-        })
+    queryNew(evt) {
+        console.log(evt)
+        const query = evt.target.value;
+        this.setState({ query, offset: 0 }, () => this.reCallApi());
     }
 
     resolveUrl(row) {
+        console.log('click')
         if (row.ChildrenBeatmaps === null) return `https://kurikku.pw/s/${row.SetID}`;
-
-        return `https://kurikku.pw/b/${row.ChildrenBeatmaps[row.ChildrenBeatmaps.length - 1].BeatmapID}`
+        window.location.href = `https://kurikku.pw/b/${row.ChildrenBeatmaps[row.ChildrenBeatmaps.length - 1].BeatmapID}`;
     }
 
     calcPlaycount(beatmaps) {
-        return beatmaps.reduce((a, b) => {
-            return a + b.Playcount
-        }, 0)
+        return beatmaps.reduce((a, b) => a + b.Playcount, 0)
     }
 
     getBeatmapsData() {
         return this.state.beatmaps.map((row, i) => (
-            <div className="eight wide column" key={row.SetID}>
-                {console.log(row)}
+            <div className="eight wide column" key={row.SetID} onClick={() => this.resolveUrl(row)}>
                 <div className="map">
                     <div className="map-header">
-                        <a href={this.resolveUrl(row)}>
-                            <img 
-                                src={`https://assets.ppy.sh/beatmaps/${row.SetID}/covers/card.jpg`}
-                                alt=""
-                            />
-                        </a>
+                        <img 
+                            src={`https://assets.ppy.sh/beatmaps/${row.SetID}/covers/card.jpg`}
+                            alt=""
+                        />
+                        <div className="map-header__shadow"></div>
                         <div className="map-header__status">{this.getRankStatus(row.RankedStatus)}</div>
                         <div className="map-header__name">{row.Title.substring(0, 35)}</div>
                         {/* <div className="map-additional-information">
@@ -185,61 +165,60 @@ class BeatmapSearching extends Component {
                             <div class="ui input" style={{width: "100%"}}>
                                 <DebounceInput
                                     minLength={0}
+                                    className="search-input"
+                                    placeholder="Search"
                                     debounceTimeout={350}
-                                    onChange={this.queryNew} />
+                                    onChange={this.queryNew} 
+                                />
                             </div>
                             <div className="ui segment wow-links">
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a 
-                                    onClick={this.switchMode.bind(this)} data-modeosu="-1"
-                                    className={(this.state.mode === -1 ? "clicked" : "")} href="#"
-                                >Any</a>
+                                <span 
+                                    onClick={this.switchMode.bind(this, -1)}
+                                    className={(this.state.mode === -1 ? "clicked" : "")}
+                                >Any</span>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a 
-                                    onClick={this.switchMode.bind(this)} data-modeosu="0"
-                                    className={(this.state.mode === 0 ? "clicked" : "")} href="#"
-                                >osu!std</a>
+                                <span 
+                                    onClick={this.switchMode.bind(this, 0)}
+                                    className={(this.state.mode === 0 ? "clicked" : "")}
+                                >osu!std</span>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a 
-                                    onClick={this.switchMode.bind(this)} data-modeosu="1"
-                                    className={(this.state.mode === 1 ? "clicked" : "")} href="#"
-                                >osu!taiko</a>
+                                <span 
+                                    onClick={this.switchMode.bind(this, 1)}
+                                    className={(this.state.mode === 1 ? "clicked" : "")}
+                                >osu!taiko</span>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a 
-                                    onClick={this.switchMode.bind(this)} data-modeosu="2"
-                                    className={(this.state.mode === 2 ? "clicked" : "")} href="#"
-                                >osu!catch</a>
+                                <span 
+                                    onClick={this.switchMode.bind(this, 2)}
+                                    className={(this.state.mode === 2 ? "clicked" : "")}
+                                >osu!catch</span>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a 
-                                    onClick={this.switchMode.bind(this)} data-modeosu="3"
-                                    className={(this.state.mode === 3 ? "clicked" : "")} href="#"
-                                >osu!mania</a>
+                                <span 
+                                    onClick={this.switchMode.bind(this, 3)}
+                                    className={(this.state.mode === 3 ? "clicked" : "")}
+                                >osu!mania</span>
                             </div>
                             <div className="ui segment wow-links">
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a onClick={this.switchRank.bind(this)}
+                                <span 
+                                    onClick={this.switchRank.bind(this, -3)}
                                     className={(this.state.status === -3 ? "clicked" : "")} 
-                                    data-rankstatus="-3"
-                                    href="#"
-                                >Any</a>
+                                >Any</span>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a onClick={this.switchRank.bind(this)}
+                                <span 
+                                    onClick={this.switchRank.bind(this, -1)}
                                     className={(this.state.status === 1 ? "clicked" : "")} 
-                                    data-rankstatus="1"
-                                    href="#"
-                                >Ranked</a>
+                                >Ranked</span>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a onClick={this.switchRank.bind(this)}
+                                <span 
+                                    onClick={this.switchRank.bind(this, 3)}
                                     className={(this.state.status === 3 ? "clicked" : "")} 
-                                    data-rankstatus="3"
-                                    href="#"
-                                >Qualified</a>
+                                >Qualified</span>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a onClick={this.switchRank.bind(this)}
+                                <span 
+                                    onClick={this.switchRank.bind(this, 4)}
                                     className={(this.state.status === 4 ? "clicked" : "")} 
-                                    data-rankstatus="4"
-                                    href="#"
-                                >Loved</a>
+                                >Loved</span>
                             </div>
                         </div>
                     </div>
